@@ -1,15 +1,13 @@
 import Styles from './login-styles.scss'
 
 import { Spinner } from '@/presentation/components/spinner/spinner'
-import { Logo } from '@/presentation/components/logo/logo'
+import { LoginHeader } from '@/presentation/components/login-header/login-header'
+import { Footer } from '@/presentation/components/footer/footer'
 
 export const Login = (): React.ReactElement => {
   return (
     <div className={Styles.login}>
-      <header className={Styles.header}>
-        <Logo />
-        <h1>4Dev - Enquetes para Programadores</h1>
-      </header>
+      <LoginHeader />
       <form className={Styles.form}>
         <h2>Login</h2>
         <div className={Styles.inputWrap}>
@@ -28,7 +26,7 @@ export const Login = (): React.ReactElement => {
         </div>
       </form>
 
-      <footer className={Styles.footer} />
+      <Footer />
     </div>
   )
 }

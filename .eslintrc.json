@@ -16,6 +16,7 @@
     "@typescript-eslint/consistent-type-definitions": "off",
     "@typescript-eslint/strict-boolean-expressions": "off",
     "react/react-in-jsx-scope": "off",
+    "react/display-name": "off",
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error"
   }
