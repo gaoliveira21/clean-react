@@ -8,14 +8,13 @@ import { FormContext } from '@/presentation/contexts/form/form-context'
 
 export const FormStatus = (): React.ReactElement => {
   const {
-    state: { isLoading },
-    errorState: { main }
+    state: { isLoading, mainError }
   } = useContext(FormContext)
 
   return (
     <div data-testid="error-wrap" className={Styles.errorWrap}>
       {isLoading && <Spinner className={Styles.spinner} />}
-      {main && <span className={Styles.error}>{main}</span>}
+      {mainError && <span className={Styles.error}>{mainError}</span>}
     </div>
   )
 }

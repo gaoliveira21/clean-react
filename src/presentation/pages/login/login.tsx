@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import Styles from './login-styles.scss'
 
@@ -11,22 +11,32 @@ import {
 
 import { FormContext } from '@/presentation/contexts/form/form-context'
 
-export const Login = (): React.ReactElement => {
-  const [state] = useState({
-    isLoading: false
+import { Validation } from '@/presentation/protocols/validation'
+
+type LoginProps = {
+  validation: Validation
+}
+
+export const Login = ({ validation }: LoginProps): React.ReactElement => {
+  const [state, setState] = useState({
+    isLoading: false,
+    email: '',
+    emailError: 'Campo obrigatório',
+    passwordError: 'Campo obrigatório',
+    mainError: ''
   })
 
-  const [errorState] = useState({
-    email: 'Campo obrigatório',
-    password: 'Campo obrigatório',
-    main: ''
-  })
+  useEffect(() => {
+    validation.validate({
+      email: state.email
+    })
+  }, [state.email])
 
   return (
     <div className={Styles.login}>
       <LoginHeader />
 
-      <FormContext.Provider value={{ state, errorState }}>
+      <FormContext.Provider value={{ state, setState }}>
         <form className={Styles.form}>
           <h2>Login</h2>
 
