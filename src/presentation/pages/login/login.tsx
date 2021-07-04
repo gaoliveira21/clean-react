@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
 import { Authentication } from '@/domain/usecases'
 
@@ -22,6 +22,8 @@ type LoginProps = {
 }
 
 export const Login = ({ validation, authentication }: LoginProps): React.ReactElement => {
+  const history = useHistory()
+
   const [state, setState] = useState({
     isLoading: false,
     email: '',
@@ -54,6 +56,8 @@ export const Login = ({ validation, authentication }: LoginProps): React.ReactEl
       })
 
       localStorage.setItem('accessToken', account.accessToken)
+
+      history.replace('/')
     } catch (error) {
       setState({
         ...state,
