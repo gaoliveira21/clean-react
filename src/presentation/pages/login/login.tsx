@@ -46,10 +46,18 @@ export const Login = ({ validation, authentication }: LoginProps): React.ReactEl
       return
     }
 
-    await authentication.auth({
-      email: state.email,
-      password: state.password
-    })
+    try {
+      await authentication.auth({
+        email: state.email,
+        password: state.password
+      })
+    } catch (error) {
+      setState({
+        ...state,
+        isLoading: false,
+        mainError: error.message
+      })
+    }
   }
 
   return (
