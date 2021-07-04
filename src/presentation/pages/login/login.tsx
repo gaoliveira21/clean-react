@@ -42,7 +42,7 @@ export const Login = ({ validation, authentication }: LoginProps): React.ReactEl
     event.preventDefault()
     setState({ ...state, isLoading: true })
 
-    if (state.isLoading) {
+    if (state.isLoading || state.emailError || state.passwordError) {
       return
     }
 
@@ -57,7 +57,7 @@ export const Login = ({ validation, authentication }: LoginProps): React.ReactEl
       <LoginHeader />
 
       <FormContext.Provider value={{ state, setState }}>
-        <form className={Styles.form} onSubmit={handleSubmit}>
+        <form data-testid="form" className={Styles.form} onSubmit={handleSubmit}>
           <h2>Login</h2>
 
           <Input type="email" name="email" placeholder="Digite seu e-mail" />
