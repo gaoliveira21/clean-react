@@ -47,10 +47,12 @@ export const Login = ({ validation, authentication }: LoginProps): React.ReactEl
     }
 
     try {
-      await authentication.auth({
+      const account = await authentication.auth({
         email: state.email,
         password: state.password
       })
+
+      localStorage.setItem('accessToken', account.accessToken)
     } catch (error) {
       setState({
         ...state,
