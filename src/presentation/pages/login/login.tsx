@@ -40,8 +40,11 @@ export const Login = ({ validation, authentication }: LoginProps): React.ReactEl
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
-
     setState({ ...state, isLoading: true })
+
+    if (state.isLoading) {
+      return
+    }
 
     await authentication.auth({
       email: state.email,
