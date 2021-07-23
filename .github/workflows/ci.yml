@@ -23,7 +23,7 @@ jobs:
         run: npm i
       
       - name: Linting
-        run: eslint 'src/**'
+        run: npm run lint
       
       - name: Test
         run: npm run test:ci

@@ -10,6 +10,7 @@
     "test:watch": "npm test -- --watch",
     "test:staged": "npm test -- --findRelatedTests",
     "test:ci": "npm test -- --coverage",
+    "lint": "eslint 'src/**'",
     "check": "npm-check -u -s"
   },
   "keywords": [],
