@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
-import { Authentication } from '@/domain/usecases'
+import { Authentication, SaveAccessToken } from '@/domain/usecases'
 
 import {
   LoginHeader,
@@ -9,9 +9,7 @@ import {
   Input,
   FormStatus
 } from '@/presentation/components'
-
 import { FormContext } from '@/presentation/contexts/form/form-context'
-
 import { Validation } from '@/presentation/protocols/validation'
 
 import Styles from './login-styles.scss'
@@ -19,9 +17,10 @@ import Styles from './login-styles.scss'
 type LoginProps = {
   validation: Validation
   authentication: Authentication
+  saveAccessToken: SaveAccessToken
 }
 
-export const Login = ({ validation, authentication }: LoginProps): React.ReactElement => {
+export const Login = ({ validation, authentication, saveAccessToken }: LoginProps): React.ReactElement => {
   const history = useHistory()
 
   const [state, setState] = useState({
@@ -55,7 +54,7 @@ export const Login = ({ validation, authentication }: LoginProps): React.ReactEl
         password: state.password
       })
 
-      localStorage.setItem('accessToken', account.accessToken)
+      await saveAccessToken.save(account.accessToken)
 
       history.replace('/')
     } catch (error) {
