@@ -8,13 +8,16 @@ import {
 import { FormContext } from '@/presentation/contexts/form/form-context'
 import { Validation } from '@/presentation/protocols/validation'
 
+import { AddAccount } from '@/domain/usecases'
+
 import Styles from './signup-styles.scss'
 
 type SignUpProps = {
   validation: Validation
+  addAccount: AddAccount
 }
 
-export const SignUp = ({ validation }: SignUpProps): React.ReactElement => {
+export const SignUp = ({ validation, addAccount }: SignUpProps): React.ReactElement => {
   const [state, setState] = useState({
     isLoading: false,
     name: '',
@@ -41,6 +44,12 @@ export const SignUp = ({ validation }: SignUpProps): React.ReactElement => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
     setState({ ...state, isLoading: true })
+    await addAccount.add({
+      name: state.name,
+      email: state.email,
+      password: state.password,
+      passwordConfirmation: state.passwordConfirmation
+    })
   }
 
   return (
