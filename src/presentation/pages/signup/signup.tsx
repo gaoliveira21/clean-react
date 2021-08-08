@@ -34,7 +34,7 @@ export const SignUp = ({ validation }: SignUpProps): React.ReactElement => {
       nameError: validation.validate('name', state.name),
       emailError: validation.validate('email', state.email),
       passwordError: validation.validate('password', state.password),
-      passwordConfirmationError: validation.validate('password', state.passwordConfirmation)
+      passwordConfirmationError: validation.validate('passwordConfirmation', state.passwordConfirmation)
     })
   }, [state.name, state.email, state.password, state.passwordConfirmation])
 
