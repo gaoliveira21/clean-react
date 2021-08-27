@@ -7,7 +7,8 @@ import {
   LoginHeader,
   Footer,
   Input,
-  FormStatus
+  FormStatus,
+  SubmitButton
 } from '@/presentation/components'
 import { FormContext } from '@/presentation/contexts/form/form-context'
 import { Validation } from '@/presentation/protocols/validation'
@@ -25,6 +26,7 @@ export const Login = ({ validation, authentication, saveAccessToken }: LoginProp
 
   const [state, setState] = useState({
     isLoading: false,
+    isFormInvalid: true,
     email: '',
     password: '',
     emailError: '',
@@ -33,10 +35,14 @@ export const Login = ({ validation, authentication, saveAccessToken }: LoginProp
   })
 
   useEffect(() => {
+    const emailError = validation.validate('email', state.email)
+    const passwordError = validation.validate('password', state.password)
+
     setState({
       ...state,
-      emailError: validation.validate('email', state.email),
-      passwordError: validation.validate('password', state.password)
+      emailError,
+      passwordError,
+      isFormInvalid: !!emailError || !!passwordError
     })
   }, [state.email, state.password])
 
@@ -44,7 +50,7 @@ export const Login = ({ validation, authentication, saveAccessToken }: LoginProp
     event.preventDefault()
     setState({ ...state, isLoading: true })
 
-    if (state.isLoading || state.emailError || state.passwordError) {
+    if (state.isLoading || state.isFormInvalid) {
       return
     }
 
@@ -77,7 +83,7 @@ export const Login = ({ validation, authentication, saveAccessToken }: LoginProp
           <Input type="email" name="email" placeholder="Digite seu e-mail" />
           <Input type="password" name="password" placeholder="Digite sua senha" />
 
-          <button data-testid="submit" disabled={!!state.emailError || !!state.passwordError} className={Styles.submit} type="submit">Entrar</button>
+          <SubmitButton>Entrar</SubmitButton>
           <Link data-testid="signup-link" to="/signup" className={Styles.link}>Criar conta</Link>
           <FormStatus />
         </form>
