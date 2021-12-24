@@ -15,5 +15,12 @@ module.exports = {
   moduleNameMapper: {
     '@/(.*)': '<rootDir>/src/$1',
     '\\.scss$': 'identity-obj-proxy'
-  }
+  },
+  modulePathIgnorePatterns: [
+    '<rootDir>/src/main/test/cypress'
+  ],
+  testPathIgnorePatterns: [
+    '<rootDir>/node_modules',
+    '<rootDir>/src/main/test/cypress'
+  ]
 }
